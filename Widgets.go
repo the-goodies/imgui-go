@@ -113,6 +113,26 @@ func RadioButton(id string, active bool) bool {
 	return C.iggRadioButton(idArg, castBool(active)) != 0
 }
 
+// RadioButtonInt modifies integer v. Returns true if it is selected.
+//
+// The radio button will be set if v == button. Useful for groups of radio
+// buttons. In the example below, "radio b" will be selected.
+//
+//		v := 1
+//		imgui.RadioButtonInt("radio a", &v, 0)
+//		imgui.RadioButtonInt("radio b", &v, 1)
+//		imgui.RadioButtonInt("radio c", &v, 2)
+//
+func RadioButtonInt(id string, v *int, button int) bool {
+	idArg, idFin := wrapString(id)
+	defer idFin()
+	ok := C.iggRadioButton(idArg, castBool(button == *v)) != 0
+	if ok {
+		*v = button
+	}
+	return ok
+}
+
 // Bullet draws a small circle and keeps the cursor on the same line.
 // Advance cursor x position by TreeNodeToLabelSpacing(), same distance that TreeNode() uses.
 func Bullet() {
@@ -546,8 +566,11 @@ const (
 	InputTextFlagsCtrlEnterForNewLine InputTextFlags = 1 << 11
 	// InputTextFlagsNoHorizontalScroll disables following the cursor horizontally.
 	InputTextFlagsNoHorizontalScroll InputTextFlags = 1 << 12
-	// InputTextFlagsAlwaysInsertMode sets insert mode.
+	// InputTextFlagsAlwaysInsertMode was renamed to InputTextFlagsAlwaysOverwriteMode to reflect its actual behavior and will be removed in v5.
+	// Deprecated: Use InputTextFlagsAlwaysOverwriteMode.
 	InputTextFlagsAlwaysInsertMode InputTextFlags = 1 << 13
+	// InputTextFlagsAlwaysOverwriteMode sets overwrite mode.
+	InputTextFlagsAlwaysOverwriteMode InputTextFlags = 1 << 13
 	// InputTextFlagsReadOnly sets read-only mode.
 	InputTextFlagsReadOnly InputTextFlags = 1 << 14
 	// InputTextFlagsPassword sets password mode, display all characters as '*'.
