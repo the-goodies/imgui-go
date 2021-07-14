@@ -75,6 +75,11 @@ int iggTableGetColumnFlags(int column_n)
 	return ImGui::TableGetColumnFlags(column_n);
 }
 
+void iggTableSetColumnEnabled(int column_n, IggBool v)
+{
+	ImGui::TableSetColumnEnabled(column_n, v);
+}
+
 void iggTableSetBgColor(int target, IggVec4 const *color, int column_n)
 {
 	Vec4Wrapper colorArg(color);

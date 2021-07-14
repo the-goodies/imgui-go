@@ -38,8 +38,8 @@ func (io IO) WantTextInput() bool {
 	return C.iggWantTextInput(io.handle) != 0
 }
 
-// Framerate application estimation, in frame per second. Solely for convenience.
-// Rolling average estimation based on IO.DeltaTime over 120 frames.
+// Rough estimate of application framerate, in frame per second. Solely for convenience.
+// Rolling average estimation based on io.DeltaTime over 120 frames.
 func (io IO) Framerate() float32 {
 	return float32(C.iggFramerate(io.handle))
 }

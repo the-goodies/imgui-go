@@ -67,9 +67,10 @@ const (
 	// WindowFlagsNoNavFocus has no focusing toward this window with gamepad/keyboard navigation
 	// (e.g. skipped by CTRL+TAB).
 	WindowFlagsNoNavFocus WindowFlags = 1 << 19
-	// WindowFlagsUnsavedDocument appends '*' to title without affecting the ID, as a convenience to avoid using the
-	// ### operator. When used in a tab/docking context, tab is selected on closure and closure is deferred by one
-	// frame to allow code to cancel the closure (with a confirmation popup, etc.) without flicker.
+	// WindowFlagsUnsavedDocument display a dot next to the title.
+	// When used in a tab/docking context, tab is selected when clicking the X
+	// + closure is not assumed (will wait for user to stop submitting the tab).
+	// Otherwise closure is assumed when pressing the X, so if you keep submitting the tab may reappear at end of tab bar.
 	WindowFlagsUnsavedDocument WindowFlags = 1 << 20
 
 	// WindowFlagsNoNav combines WindowFlagsNoNavInputs and WindowFlagsNoNavFocus.
@@ -328,6 +329,21 @@ func PushTextWrapPos() {
 // PopTextWrapPos resets the last pushed position.
 func PopTextWrapPos() {
 	C.iggPopTextWrapPos()
+}
+
+// PushDisabledV disable all user interactions and apply an extra style.DisabledAlpha over current colors.
+func PushDisabledV(disabled bool) {
+	C.iggPushDisabled(castBool(disabled))
+}
+
+// PushDisabled calls PushDisabledV(true).
+func PushDisabled() {
+	PushDisabledV(true)
+}
+
+// PopDisabled pops most recent PushDisabled setting.
+func PopDisabled() {
+	C.iggPopDisabled()
 }
 
 // PushButtonRepeat enables button to repeat press if held.

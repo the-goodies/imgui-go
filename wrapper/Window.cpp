@@ -166,6 +166,16 @@ void iggPopTextWrapPos(void)
    ImGui::PopTextWrapPos();
 }
 
+void iggPushDisabled(IggBool disabled)
+{
+   ImGui::PushDisabled(disabled);
+}
+
+void iggPopDisabled()
+{
+   ImGui::PopDisabled();
+}
+
 void iggPushButtonRepeat(IggBool repeat)
 {
    ImGui::PushButtonRepeat(repeat);

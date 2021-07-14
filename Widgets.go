@@ -1176,7 +1176,7 @@ func MenuItem(label string) bool {
 	return MenuItemV(label, "", false, true)
 }
 
-// Columns API is Legacy (2021: prefer using Tables!).
+// Columns API is Legacy (prefer using Tables!).
 // - You can also use SameLineV(pos_x, 0) to mimic simplified columns.
 //
 // Columns calls ColumnsV(1, "", false).
@@ -1294,9 +1294,9 @@ type TabItemFlags int
 const (
 	// TabItemFlagsNone default = 0.
 	TabItemFlagsNone TabItemFlags = 0
-	// TabItemFlagsUnsavedDocument Append '*' to title without affecting the ID, as a convenience to avoid using the
-	// ### operator. Also: tab is selected on closure and closure is deferred by one frame to allow code to undo it
-	// without flicker.
+	// TabItemFlagsUnsavedDocument Display a dot next to the title
+	// + tab is selected when clicking the X + closure is not assumed (will wait for user to stop submitting the tab).
+	// Otherwise closure is assumed when pressing the X, so if you keep submitting the tab may reappear at end of tab bar.
 	TabItemFlagsUnsavedDocument TabItemFlags = 1 << 0
 	// TabItemFlagsSetSelected Trigger flag to programmatically make the tab selected when calling BeginTabItem().
 	TabItemFlagsSetSelected TabItemFlags = 1 << 1
